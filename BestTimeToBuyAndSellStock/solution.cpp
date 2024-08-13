@@ -1,35 +1,32 @@
+#include <optional>
+
 class Solution {
 public:
     int maxProfit(vector<int>& prices) {
-        int bestBuyDay      = 0;
-        int bestSellDay     = 0;
-        bool buyDayFound    = false;
-        bool sellDayFound   = false;
+        optional<int>   buyDay  = 0;
+        optional<int>   sellDay = 0;
+
+        int             profit  = 0;
 
         for (int i=0; i<prices.size(); i++)
         {
-            if (!buyDayFound || prices.at(i) < prices.at(bestBuyDay))
+            // Check if a better buy day can be found
+            if (!buyDay || prices.at(i) < prices.at(buyDay.value()))
             {
-                bestBuyDay = i;
-                buyDayFound = true;
+                buyDay = i;
+                
+                // Sell day cant occur on buy day so continue to next iteration
                 continue;
             }
-            if (!sellDayFound || prices.at(i) > prices.at(bestSellDay)) 
+
+            // Check if greater profit is possible
+            if (!sellDay || prices.at(i) - prices.at(buyDay.value()) >= profit) 
             {
-                bestSellDay = i;
-                sellDayFound = true;
+                sellDay = i;
+                profit = prices.at(sellDay.value()) - prices.at(buyDay.value());
             }
         }
 
-        if (buyDayFound && sellDayFound)
-        {
-            int profit = prices.at(bestSellDay) - prices.at(bestBuyDay);
-            return profit;
-        }
-        else
-        {
-            // Profit cannot be achieved
-            return 0;
-        }
+        return profit;
     }
 };
