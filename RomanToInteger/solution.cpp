@@ -29,7 +29,7 @@ public:
 
             if (currentValue < nextValue)
             {
-                // One of the size instances where subtraction is needed for roman to value conversion
+                // One of the six instances where subtraction is needed for roman to value conversion
                 sum -= currentValue;
             }
             else
