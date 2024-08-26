@@ -24,8 +24,8 @@ public:
             bool    isLastCharInStr = (i == s.size()-1);
 
             // if last char in string there is no next value so set equal to current value to skip to the usual use case 
-            int     currentValue    = map[s.at(i)];
-            int     nextValue       = (!isLastCharInStr) ? map[s.at(i+1)] : currentValue;   
+            int     currentValue    = map.at(s.at(i));
+            int     nextValue       = (!isLastCharInStr) ? map.at(s.at(i+1)) : currentValue;   
 
             if (currentValue < nextValue)
             {
