@@ -1,28 +1,12 @@
-#include <unordered_map>
-
 class Solution {
 public:
     int majorityElement(vector<int>& nums) 
     {
-        // Generate hashmap with counts of each num
-        unordered_map<int, int> hashMap;
-        for (int i : nums)
-        {
-            hashMap[i]++;
-        }
+        // If an element repeats more then n/2 times then the element at index n/2 is 
+        // guaranteed to be equal to this value when the nums list is sorted
+        sort(nums.begin(), nums.end());
 
-        // Find num with biggest count
-        int maxOccuringNum      = 0;
-        int maxOccuringCount    = 0;
-        for (auto [num, count] : hashMap)
-        {
-            if (count >= maxOccuringCount)
-            {
-                maxOccuringCount = count;
-                maxOccuringNum = num;
-            }
-        }
-
-        return maxOccuringNum;    
+        int majElement = nums.at(nums.size()/2);
+        return majElement;    
     }
 };
