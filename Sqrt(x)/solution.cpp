@@ -1,8 +1,9 @@
 class Solution {
 public:
     int mySqrt(int x) {
-        if (x == 1)
-            return 1;
+        // this inputs are already known so return early
+        if (x == 0 || x == 1)
+            return x;
 
         // perform binary search to find sqrt
         int low = 0;
