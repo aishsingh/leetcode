@@ -1,23 +1,24 @@
-#include <unordered_map>
-
 class Solution {
 public:
     bool isPalindrome(int x) 
     {
-        // convert int to string so it can be traversed easier
-        string num = to_string(x);
+        // Negative value are not palindromes
+        if (x < 0) return false;
 
-        for (int i=0; i<num.length(); i++)
+        // iterate over digits to form reversed num
+        long long reversed = 0;
+        int tmp = x;
+        while (tmp > 0)
         {
-            auto frontPtr   = num.begin() + i;
-            auto backPtr    = num.end() -1 - i;
+            int digit = tmp % 10;
 
-            if (*frontPtr != *backPtr)
-            {
-                return false;
-            }
+            reversed *= 10;
+            reversed += digit;
+
+            // bit shift to iterate to next digit
+            tmp /= 10;
         }
 
-        return true;
+        return (reversed == x);
     }
 };
