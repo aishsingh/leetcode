@@ -7,11 +7,14 @@ public:
         // Use hashmap to keep count of letters in both strings
         unordered_map<char, int> letterCount;
 
-        for (auto letter : s)
-            letterCount[letter]++;
+        if (s.length() != t.length())
+            return false;
 
-        for (auto letter : t)
-            letterCount[letter]--;
+        for (int i=0; i<s.length(); i++)
+        {
+            letterCount[s.at(i)]++;
+            letterCount[t.at(i)]--;
+        }           
 
         // To be a valid anagram the letter counts in the hashmap should be all zeros if the count was the same in both strings
         for (const auto& [letter, count]: letterCount)
