@@ -2,31 +2,34 @@ class Solution {
 public:
     bool isPalindrome(string s) 
     {
-
-        for (int i=0; i<s.size(); i++)
+        // Comparing front and back chars and increment closer to the middle
+        int start   = 0;
+        int end     = s.size() - 1;
+        while (start <= end)
         {
-            if (isalnum(s.at(i)))
+            char startChar  = s.at(start);
+            char endChar    = s.at(end);
+
+            // Skip non alpha-numeric chars
+            if (!isalnum(startChar))
             {
-                // convert letters to lowercase
-                s.at(i) = tolower(s.at(i));
+                start++;
+                continue;
+            }
+            if (!isalnum(endChar))
+            {
+                end--;
+                continue;
+            }
+
+            if (tolower(startChar) != tolower(endChar))
+            {
+                return false;
             }
             else
             {
-                // remove non alpha-numeric char
-                s.erase(s.begin() + i);
-                i--;
-            }
-        }
-
-        // Comparing front and back chars and increment closer to the middle
-        for (int i=0; i<s.size()/2; i++)
-        {
-            char front  = *(s.begin()+i);
-            char back   = *(s.end()-1-i);   // extra -1 to skip ending string null char
-
-            if (front != back)
-            {
-                return false;
+                start++;
+                end--;
             }
         }
 
