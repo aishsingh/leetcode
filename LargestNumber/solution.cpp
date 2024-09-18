@@ -2,27 +2,29 @@ class Solution {
 public:
     string largestNumber(vector<int>& nums) 
     {
-        string largestNum;
+        // convert nums to string ahead here once as they are needed as  later to compare later as strings and append
+        // converting here saves time converting multiple times in the sorting fn
+        vector<string> numsStr;
+        for (int num : nums) {
+            numsStr.push_back(to_string(num));
+        }
 
         // use the exisiting sort algorithm with the modified condition fn below
-        sort(nums.begin(), nums.end(), [ ](const int& num1, const int& num2)
+        sort(numsStr.begin(), numsStr.end(), [ ](const auto& num1, const auto& num2)
         {
-            // return true if combo1 with num1 is "greater"
-
-            string combo1 = to_string(num1) + to_string(num2);
-            string combo2 = to_string(num2) + to_string(num1);
-
-            return (combo1 > combo2);
+            // return true if num1 is "greater"
+            return ((num1 + num2) > (num2 + num1));
         });
 
         // if 0 is considered the greatest num out of any potential other nums return 0 so no other chars are returned
-        if (nums.front() == 0)
+        if (numsStr.front() == "0")
             return "0";
 
         // form result string
-        for (const auto& num : nums)
+        string largestNum;
+        for (const auto& num : numsStr)
         {
-            largestNum.append(to_string(num));
+            largestNum.append(num);
         }
 
         return largestNum;
