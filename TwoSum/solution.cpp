@@ -1,22 +1,20 @@
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int, int> hashmap;
+
         for (int i=0; i<nums.size(); i++)
         {
-            for (int j=0; j<nums.size(); j++)
-            {
-                // Cannot use same element twice 
-                if (i == j)
-                {
-                    continue;
-                }
+            int curNum      = nums.at(i);
+            int neededNum   = target - curNum;
 
-                // Check sum
-                if (nums.at(i) + nums.at(j) == target)
-                {
-                    return {i, j};
-                }
-            }   
+            // check if needed value exists already in the hashmap
+            // return the indices of both value if it does
+            if (hashmap.count(neededNum) != 0)
+                return {i, hashmap[neededNum]};
+
+            // add current value mapped to current index to hashmap sp it can be queried later
+            hashmap[curNum] = i;
         }
 
         // Should never reach here because one solution is guaranteed
